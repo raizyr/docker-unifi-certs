@@ -91,7 +91,7 @@ function get_watches() {
 function init_keystore() {
   ::log.trace "${FUNCNAME[0]}:" "$@"
 
-  ::log.debug 'Intializing keystore...'
+  ::log.info 'Intializing keystore...'
     keytool \
       -genkey \
       -keyalg RSA \
@@ -179,7 +179,7 @@ function _recent_update() {
   local lastupdatetime=$(($(stat -c '%Y' "${KEYSTORE}")+${QUIET_PERIOD}))
   local certtime=$(stat -c '%Y' "${1}")
 
-  if ::var.less_than "${lastupdatetime}" "${certtime}"; then
+  if ::var.greater_than "${lastupdatetime}" "${certtime}"; then
     return "${__BASHLIB_EXIT_OK}"
   fi
 
