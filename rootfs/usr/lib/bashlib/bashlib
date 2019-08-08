@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -o errexit  # Exit script when a command exits with non-zero status
+set -o errtrace # Exit on error inside any functions or sub-shells
+set -o nounset  # Exit script on use of an undefined variable
+set -o pipefail # Return exit status of the last command in the pipe that failed
+
+export __BASHLIB_BIN
+export __BASHLIB_LIB_DIR
+
+__BASHLIB_BIN=$(readlink -f "${BASH_SOURCE[0]}")
+__BASHLIB_LIB_DIR=$(dirname "${__BASHLIB_BIN}")
+
+source "${__BASHLIB_LIB_DIR}/bashlib.sh"
+
+# Execute source
+source "$@"
